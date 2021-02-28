@@ -1,6 +1,6 @@
 Package: jbutilities
 Title: Useful functions ammassed through the years
-Version: 0.0.1
+Version: 0.0.2
 Authors@R: 
     person(given = "Julie",
            family = "Bronnimann",
