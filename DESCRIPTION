@@ -1,6 +1,6 @@
 Package: jbutilities
 Title: Useful functions ammassed through the years
-Version: 0.0.2
+Version: 0.0.3
 Authors@R: 
     person(given = "Julie",
            family = "Bronnimann",
@@ -13,7 +13,6 @@ LazyData: true
 RoxygenNote: 7.1.1
 Roxygen: list(markdown = TRUE)
 Imports: 
-    RODBC (>= 1.3),
     Rcpp,
     tidyverse,
     stats,
@@ -22,6 +21,6 @@ Imports:
     crayon
 LinkingTo: 
     Rcpp
-Depends: R (>= 3.6.1)
+Depends: R (>= 4.0)
 Suggests: 
     testthat (>= 2.1.0)

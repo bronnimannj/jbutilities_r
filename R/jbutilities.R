@@ -1,0 +1,27 @@
+#' @keywords internal
+"_PACKAGE"
+
+# The following block is used by usethis to automatically manage
+# roxygen namespace tags. Modify with care!
+
+## usethis namespace: start
+#' @docType package
+#'
+#' @name jbutilities
+#'
+#' @title Utilities package
+#' @description
+#' This package contains I created over time that I thought would be a good idea to keep
+#'
+#' @section Functions in the package:
+#'
+#' \describe{
+#'       \item{check_format_df}{To check the format of a data frame}
+#'       \item{create_df_rd}{To create a random table}
+#'  }
+#' #'
+#'
+#' @importFrom Rcpp sourceCpp
+#' @useDynLib jbutilities, .registration = TRUE
+## usethis namespace: end
+NULL

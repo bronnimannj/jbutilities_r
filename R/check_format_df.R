@@ -15,7 +15,7 @@
 #' @return string "Check completed".
 #' @export
 #'
-#' @import crayon
+#' @importFrom crayon blue red green magenta
 #' @importFrom stringr str_length
 #'
 #' @examples check_format_df(iris)
