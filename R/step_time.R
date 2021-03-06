@@ -4,7 +4,7 @@
 #'
 #' @param step String, representing the step. Can be a number too
 #'
-#' @return String, with the next name of the series
+#' @return String, with step number and the date + time
 #' @export
 #'
 #' @examples

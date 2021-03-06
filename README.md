@@ -23,7 +23,13 @@ This function verifies:
 -   Missing data per column
 -   Other strange values: “NaN”, “NA”, or +/- Inf
 
-Then, it returns :
+Inputs:
+
+-   data : a data frame containing the dataset to check
+-   digits: an integer, number of digits we will round the numerical
+    variables. Default is 6
+
+It returns :
 
 -   For each boolean column the number of True or False values,
 -   For each categorical (factor) column the number of levels and the
@@ -36,7 +42,7 @@ Then, it returns :
 This function creates a random dataset with some user inputs, without
 any NA nor Inf.
 
-The inputs’ formats need to be:
+Inputs:
 
 -   “size”: an integer
 -   “seed”: an integer or NA
@@ -46,3 +52,70 @@ The inputs’ formats need to be:
     0 and 1 to have True
 -   “Categories”: NULL or a list of factor variables, each element
     containing the levels as vector
+
+It returns a data.frame that can be tested by check\_format\_df
+
+### cut\_fat
+
+This function is a fast version of cut that will put every element of x
+in one of the intervals created by breaks. Each interval is left closed
+and right opened, example: ‘\[0,1)’.
+
+If -Inf or/and +Inf are not in the vector ‘breaks’, it will be added to
+it.
+
+If none of the elements are out of the intervales between the breaks,
+then the factor returned is only constituted of the breaks intervals.
+Else, +/-Inf will be added.
+
+Inputs:
+
+-   x: Numeric vector of elements to put into segments
+-   breaks: Numeric vector of breaks
+
+It returns a factor of intervals
+
+### find\_series
+
+Function to find the latest file in a series. Types regognized are:
+
+Inputs:
+
+-   Name String: representing the name of the file
+-   Type String: representing the extension of the file
+
+It returns a String, with the last name of the series
+
+### my\_ggtheme
+
+Function to put my favorite ggplot theme to any ggplot plot
+
+Inputs:
+
+-   x\_percent boolean, if TRUE we label the x axis into percents
+-   y\_percent boolean, if TRUE we label the y axis with percents
+
+It returns a ggplot with a new theme
+
+### name\_series
+
+Function to create files without over writing them.
+
+It will add an underscore and the next number of the series.
+
+Inputs:
+
+-   Name: String, representing the name of the file
+-   Type: String, representing the extension of the file
+
+It returns a String, with the next name of the series
+
+### step\_time
+
+Function to print a step and time
+
+Input: “step”, a string character representing the step. Can be a number
+too
+
+It returns a string containing the step and the date + time in a format
+“(X.Y) - \[ 06/03/2021 18:03:32 \]”

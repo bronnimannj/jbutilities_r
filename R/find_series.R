@@ -5,7 +5,7 @@
 #' @param Name String, representing the name of the file
 #' @param Type String, representing the extension of the file
 #'
-#' @return String, with the next name of the series
+#' @return String, with the last name of the series
 #' @export
 #'
 #' @examples
