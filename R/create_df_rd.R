@@ -17,6 +17,8 @@
 #' @return data.frame that can be tested by check_format_df
 #' @export
 #'
+#' @importFrom snakecase to_any_case
+#'
 #' @examples create_df_rd(10,NA, c("num1","num2"), c(0.2,0.3),list(a = c(1,2,3),b = c("F","M")))
 create_df_rd <- function(size = 10,
                          seed = as.numeric(NA),
@@ -62,16 +64,13 @@ create_df_rd <- function(size = 10,
 
   # Numerics
   if(!is.null(Numerics)){
-    Numerics <- gsub(pattern = "[[:punct:]]| ",
-                     replacement = "_",
-                     x = Numerics)
+    Numerics <- snakecase::to_any_case(Numerics,case = "snake")
   }
 
   # Bools
   if(!is.null(Booleans)){
-    names(Booleans) <- gsub(pattern = "[[:punct:]]| ",
-                            replacement = "_",
-                            x = names(Booleans))
+    names(Booleans) <- snakecase::to_any_case(names(Booleans),
+                                              case = "snake")
 
     for(i in 1:length(Booleans)){
       if(is.na(names(Booleans)[i]) | names(Booleans)[i]=="" ){
@@ -82,9 +81,8 @@ create_df_rd <- function(size = 10,
 
   # Categories
   if(!is.null(Categories)){
-    names(Categories) <- gsub(pattern = "[[:punct:]]| ",
-                              replacement = "_",
-                              x = names(Categories))
+    names(Categories) <- snakecase::to_any_case(names(Categories),
+                                                case = "snake")
     for(i in 1:length(Categories)){
       if(is.na(names(Categories)[i]) | names(Categories)[i]==""){
         names(Categories)[i] <- paste0("Cat_",i)

@@ -1,6 +1,6 @@
 Package: jbutilities
 Title: Useful functions ammassed through the years
-Version: 0.0.3
+Version: 0.0.4
 Authors@R: 
     person(given = "Julie",
            family = "Bronnimann",
@@ -18,7 +18,8 @@ Imports:
     stats,
     stringr,
     data.table,
-    crayon
+    crayon,
+    snakecase
 LinkingTo: 
     Rcpp
 Depends: R (>= 4.0)

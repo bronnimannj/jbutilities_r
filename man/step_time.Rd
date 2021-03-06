@@ -10,7 +10,7 @@ step_time(step = 0)
 \item{step}{String, representing the step. Can be a number too}
 }
 \value{
-String, with the next name of the series
+String, with step number and the date + time
 }
 \description{
 Function to print a step and time

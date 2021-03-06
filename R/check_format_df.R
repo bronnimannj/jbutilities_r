@@ -17,6 +17,7 @@
 #'
 #' @importFrom crayon blue red green magenta
 #' @importFrom stringr str_length
+#' @importFrom snakecase to_any_case
 #'
 #' @examples check_format_df(iris)
 check_format_df <- function(data, digits = 6){
@@ -46,10 +47,10 @@ check_format_df <- function(data, digits = 6){
 
   # check the names -----------------------------------------------------------
   cols_names <- names(data)
-  not_correct_name_format <- !stringr::str_detect(cols_names,"^[a-zA-Z0-9_]*$")
-  if(sum(not_correct_name_format)>0 ){
+  correct_name_format <- snakecase::to_any_case(cols_names,case = "parsed")
+  if(sum(cols_names != correct_name_format)>0 ){
     cat(crayon::red(unhappy, "There are names of columns that contain something else than letters, numerics or underscore:\n"))
-    for(i in (1:ncol(data))[not_correct_name_format]){
+    for(i in (1:ncol(data))[cols_names != correct_name_format]){
       cat(crayon::red(paste0("\t- the column '",cols_names[i],"'\n" )))
     }
     cat("\n")

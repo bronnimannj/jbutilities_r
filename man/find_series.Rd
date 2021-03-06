@@ -12,7 +12,7 @@ find_series(Name, Type)
 \item{Type}{String, representing the extension of the file}
 }
 \value{
-String, with the next name of the series
+String, with the last name of the series
 }
 \description{
 Function to find the latest file in a series. Types regognized are:
