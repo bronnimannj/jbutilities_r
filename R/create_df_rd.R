@@ -8,23 +8,23 @@
 #'
 #'
 #'
-#' @param size Integer, number of rows of the final dataset.
-#' @param seed Numeric. If NA, a seed is randomly creacted. Else, takes the seed given.
-#' @param Numerics Character vector of names of normally distributed numeric vectors
-#' @param Booleans Named vector of probabilities between 0 and 1
-#' @param Categories List of factor variables, each element containing the levels as character vector
+#' @param size Integer, number of profiles to create.
+#' @param seed Numeric. Seed for reproducibility. If NULL, a seed is randomly created. The default is NA
+#' @param numerics List. Normally distributed numeric columns. ID are the names and values are either NULL or a vector of length 2 with mean and std.
+#' @param booleans List. Binomial distributed columns. Keys are the names, values are either NULL or a float which is the probability of True values.
+#' @param categories List. Multinomial distributed columns. Keys are the names, values are either NULL or a vector of categorical values. The probabilities will be 1/N if a column has N unique values
 #'
 #' @return data.frame that can be tested by check_format_df
 #' @export
 #'
 #' @importFrom snakecase to_any_case
 #'
-#' @examples create_df_rd(10,NA, c("num1","num2"), c(0.2,0.3),list(a = c(1,2,3),b = c("F","M")))
+#' @examples create_df_rd(10,NULL, list("num1" = NULL,"num2" = c(0,1)), list("bool1" = 0.5),list(a = c(1,2,3),b = c("F","M")))
 create_df_rd <- function(size = 10,
-                         seed = as.numeric(NA),
-                         Numerics = NULL,
-                         Booleans = NULL,
-                         Categories = NULL){
+                         seed = NULL,
+                         numerics = NULL,
+                         booleans = NULL,
+                         categories = NULL){
 
   # check inputs format --------------------------------------------------------
   if(length(size) != 1 &&
@@ -32,60 +32,69 @@ create_df_rd <- function(size = 10,
     stop("The input 'size' is not of the correct format. Needs an integer.")
   }
 
-  if(is.na(seed)){
+  if(is.null(seed)){
     seed = as.integer((as.double(Sys.time()) * 1000 + Sys.getpid()) %% 2^31)
+    print(paste("Seed is NA, we set it to",seed))
   }else if(! (length(seed) == 1 &&
               abs(as.integer(as.numeric(seed),0) - as.integer(seed)) < 10^{-6})){
     stop("The input 'seed' is not of the correct format. Needs an integer.")
   }
 
-  if(!is.null(Numerics) &&
-     !( length(Numerics) >= 1 &&
-        class(Numerics) == "character") ){
-    stop("The input 'Numerics' is not of the correct format. Needs a string vector.")
+  if (is.null(numerics)){
+    print("'numerics' is None. We do not have any numerical columns")
+  }else if (is.list(numerics)){
+    print(paste("We have",length(numerics),"numerical columns"))
+  }else{
+    stop("The input 'numerics' is not of the correct format.")
   }
 
-  if(!is.null(Booleans) &&
-     !( length(Booleans) >= 1 &&
-        class(Booleans) == "numeric" &&
-        max(Booleans) <= 1 &&
-        min(Booleans) >= 0) ){
-    stop("The input 'Booleans' is not of the correct format. Needs a probabilities vector.")
+  if (is.null(booleans)){
+    print("'booleans' is None. We do not have any boolean columns")
+  }else if (is.list(booleans)){
+    print(paste("We have",length(booleans),"boolean columns"))
+  }else{
+    stop("The input 'booleans' is not of the correct format.")
   }
 
-  if(!is.null(Categories) &&
-     !( length(Categories) >= 1 &&
-        class(Categories) == "list" &&
-        all(sapply(Categories,class) %in% c("numeric","logical","character"))) ){
-    stop("The input 'Categories' is not of the correct format. Needs a list of vectors containing the levels.")
+  if(!is.null(categories) &&
+     !( length(categories) >= 1 &&
+        class(categories) == "list" &&
+        all(sapply(categories,class) %in% c("numeric","logical","character"))) ){
+    stop("The input 'categories' is not of the correct format. Needs a list of vectors containing the levels.")
   }
 
   # check names of the columns--------------------------------------------------
 
-  # Numerics
-  if(!is.null(Numerics)){
-    Numerics <- snakecase::to_any_case(Numerics,case = "snake")
-  }
+  # numerics
+  if(!is.null(numerics)){
+    names(numerics) <- snakecase::to_any_case(names(numerics),case = "snake")
 
-  # Bools
-  if(!is.null(Booleans)){
-    names(Booleans) <- snakecase::to_any_case(names(Booleans),
-                                              case = "snake")
-
-    for(i in 1:length(Booleans)){
-      if(is.na(names(Booleans)[i]) | names(Booleans)[i]=="" ){
-        names(Booleans)[i] <- paste0("Bool_",i)
+    for(i in 1:length(numerics)){
+      if(is.na(names(numerics)[i]) | names(numerics)[i]=="" ){
+        names(numerics)[i] <- paste0("num_",i)
       }
     }
   }
 
-  # Categories
-  if(!is.null(Categories)){
-    names(Categories) <- snakecase::to_any_case(names(Categories),
+  # Bools
+  if(!is.null(booleans)){
+    names(booleans) <- snakecase::to_any_case(names(booleans),
+                                              case = "snake")
+
+    for(i in 1:length(booleans)){
+      if(is.na(names(booleans)[i]) | names(booleans)[i]=="" ){
+        names(booleans)[i] <- paste0("bool_",i)
+      }
+    }
+  }
+
+  # categories
+  if(!is.null(categories)){
+    names(categories) <- snakecase::to_any_case(names(categories),
                                                 case = "snake")
-    for(i in 1:length(Categories)){
-      if(is.na(names(Categories)[i]) | names(Categories)[i]==""){
-        names(Categories)[i] <- paste0("Cat_",i)
+    for(i in 1:length(categories)){
+      if(is.na(names(categories)[i]) | names(categories)[i]==""){
+        names(categories)[i] <- paste0("cat_",i)
       }
     }
   }
@@ -93,34 +102,52 @@ create_df_rd <- function(size = 10,
   # Creation of the dataset ----------------------------------------------------
 
   # ID
-  data <- data.frame( ID = seq(1,size,1),
+  data <- data.frame( id = seq(1,size,1),
                       stringsAsFactors = FALSE)
 
   # add the numeric columns
-  if(!is.null(Numerics)){
-    for(i in 1: length(Numerics)){
-      set.seed(seed+i)
-      data[[Numerics[i]]] <- stats::rnorm(size,0,1)
+  seed_diff = 0
+  if(!is.null(numerics)){
+    for(i in 1: length(numerics)){
+      set.seed(seed+seed_diff)
+      if(is.null(numerics[[i]]) ){
+        data[[names(numerics)[i]]] <- stats::rnorm(size,0,1)
+      }else{
+        data[[names(numerics)[i]]] <- stats::rnorm(size,
+                                                   numerics[[i]][1],
+                                                   numerics[[i]][2])
+      }
+      seed_diff = seed_diff + 1
     }
   }
 
   # add the booleans
-  if(!is.null(Booleans) && !is.null(names(Booleans))){
-    for(i in 1: length(Booleans)){
-      set.seed(seed+i)
-      data[[names(Booleans[i])]] <- as.logical(stats::rbinom(size,1,Booleans[i]))
+  if(!is.null(booleans)){
+    for(i in 1: length(booleans)){
+      set.seed(seed+seed_diff)
+      if(is.null(booleans[[i]]) ){
+        data[[names(booleans)[i]]] <- as.logical(stats::rbinom(size,1,0.5))
+      }else{
+        data[[names(booleans)[i]]] <- as.logical(stats::rbinom(size,
+                                                               1,
+                                                               booleans[[i]]))
+      }
+      seed_diff = seed_diff + 1
     }
   }
 
 
   # add the categories
-  if(!is.null(Categories)&& !is.null(names(Categories))){
-    for(i in 1: length(Categories)){
-      set.seed(seed+i)
-      data[[names(Categories)[i]]] <- factor(sample(Categories[[i]],
-                                                    size,
-                                                    replace = TRUE),
-                                             levels = Categories[[i]])
+  if(!is.null(categories)){
+    for(i in 1: length(categories)){
+      set.seed(seed+seed_diff)
+      if(is.null(categories[[i]]) ){
+      } else{
+        data[[names(categories)[i]]] <- factor(sample(categories[[i]],
+                                                      size,
+                                                      replace = TRUE),
+                                               levels = categories[[i]])
+      }
     }
   }
 

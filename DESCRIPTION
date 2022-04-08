@@ -1,9 +1,9 @@
 Package: jbutilities
 Title: Useful functions ammassed through the years
-Version: 0.0.4
+Version: 0.0.5
 Authors@R: 
     person(given = "Julie",
-           family = "Bronnimann",
+           family = "Ballard",
            role = c("aut", "cre"),
            email = "bronnimannj@gmail.com")
 Description: This package contains multiple functions I found, or created, through the years and may be useful to keep.
