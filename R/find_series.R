@@ -1,27 +1,27 @@
 #' find_series
 #'
-#' Function to find the latest file in a series. Types regognized are:
+#' Function to find the latest file in a series. Types recognized are:
 #'
-#' @param Name String, representing the name of the file
-#' @param Type String, representing the extension of the file
+#' @param name_file String, representing the name of the file. If file not at the working directory, add the path to it.
+#' @param type_file String, representing the extension of the file
 #'
 #' @return String, with the last name of the series
 #' @export
 #'
 #' @examples
 #' find_series("test", "csv")
-find_series <- function(Name, Type) {
-  if(length(Name) == 0 | length(Type)== 0 ){
+find_series <- function(name_file, type_file) {
+  if(length(name_file) == 0 | length(type_file)== 0 ){
     stop("We need to have something to write")
   }
 
-  f <- paste0(Name, ".", Type)
+  f <- paste0(name_file, ".", type_file)
   if (!file.exists(f)) {
     return(NULL)
   }
   i <- 1
   repeat {
-    f1 <- paste0(Name, "_", i, ".", Type)
+    f1 <- paste0(name_file, "_", i, ".", type_file)
     if (!file.exists(f1)) {
       return(f)
     }
