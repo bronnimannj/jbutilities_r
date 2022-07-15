@@ -16,10 +16,14 @@
 #' @section Functions in the package:
 #'
 #' \describe{
-#'       \item{check_format_df}{To check the format of a data frame}
-#'       \item{create_df_rd}{To create a random table}
-#'  }
-#' #'
+#'       \item{create_df_rd}{Creates a random table}
+#'       \item{check_format_df}{Verifies the format of a table}
+#'       \item{find_series}{find the latest file in a series}
+#'       \item{name_series}{create the next file in a series}
+#'       \item{step_time}{print a step and time}
+#'       \item{my_ggtheme}{favorite ggplot theme to any ggplot plot}
+#'       \item{cut_fat}{fast version of cut}
+#'       \item{class_tree_interaction_finder}{tree interactions for binary classification}
 #'
 #' @importFrom Rcpp sourceCpp
 #' @useDynLib jbutilities, .registration = TRUE
