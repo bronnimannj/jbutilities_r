@@ -14,5 +14,5 @@
 #'
 #' @example glm_correct_pred(c(0.1,0.2,0.3), 0.01, 0.5)
 glm_correct_pred <- function(predictions, original_avg, new_avg) {
-  return(1 / (1 + (1 / original_avg - 1) / (1 / new_avg - 1) * (1 / preds - 1)))
+  return(1 / (1 + (1 / original_avg - 1) / (1 / new_avg - 1) * (1 / predictions - 1)))
 }
