@@ -13,8 +13,8 @@
 #' @param  n_trees,          number of trees to test. Default: 100
 #' @param  feature_fraction, double, between 0 and 1. Will randomly select a subset of features on each tree if feature_fraction is smaller than 1.Default = 1.
 #' @param  lower_pt,         double, between 0 and 1. what is the max target penetration required to keep a node as a low penetration node. Default = 0.1
-#' @param  upper_pt   ,      double greater than 1, what is the min target penetration index required to keep a node as a high penetration node? Default = 0.1
-#' @param  lower_dev,        double, the lower threshold for the deviance of the nodes accepted. Default = 0.1
+#' @param  upper_pt   ,      double greater than 0, what is the min target penetration index required to keep a node as a high penetration node? Default = 0.1
+#' @param  lower_dev,        double greater than 0, the lower threshold for the deviance of the nodes accepted. Default = 0.1
 #' @param  suffix_output,    string, suffix to the output columns
 #'
 #' @return A (possibly empty) data.frame with the list of leaves interactions
@@ -22,7 +22,7 @@
 #'
 #' @importFrom rpart rpart rpart.control path.rpart
 #'
-#' @example class_tree_interaction_finder( data.frame("a" = c(0,1,2),"b" = c(2,1,1),target = c(0,0,1)), 'target')
+#' @example class_tree_interaction_finder( data.frame("a" = c(0,1,2),"b" = c(2,1,1),"target" = c(0,0,1)), 'target')
 #'
 class_tree_interaction_finder <- function(df, target, n_trees = 100, feature_fraction = 1,
                                     lower_pt = 0.1, upper_pt = 0.1, lower_dev = 0.1,
@@ -37,20 +37,21 @@ class_tree_interaction_finder <- function(df, target, n_trees = 100, feature_fra
   }else if(feature_fraction <= 0 | feature_fraction > 1){
     stop("We need feature_fraction >0 and <= 1")
   }
-  if(!is.numeric(lower_index)){
-    stop("We need lower_index to be numeric")
-  }else if(lower_index <= 0 | lower_index > 1){
-    stop("We need lower_index >0 and <= 1")
+
+  if(!is.numeric(lower_pt)){
+    stop("We need lower_pt to be numeric")
+  }else if(lower_pt <= 0 | lower_pt > 1){
+    stop("We need lower_pt >0 and <= 1")
   }
-  if(!is.numeric(upper_index)){
-    stop("We need upper_index to be numeric")
-  }else if(upper_index <= 0 | upper_index > 1){
-    stop("We need upper_index >0 and <= 1")
+  if(!is.numeric(upper_pt)){
+    stop("We need upper_pt to be numeric")
+  }else if(upper_pt <= 0){
+    stop("We need upper_pt >0 and <= 1")
   }
-  if(!is.numeric(lower_absolute)){
-    stop("We need lower_absolute to be numeric")
-  }else if(lower_absolute <= 0){
-    stop("We need lower_absolute >0")
+  if(!is.numeric(lower_dev)){
+    stop("We need lower_dev to be numeric")
+  }else if(lower_dev <= 0){
+    stop("We need lower_dev >0")
   }
   if (!is.numeric(df[[target]]) | min(df[[target]]) != 0 | max(df[[target]]) != 1){
     stop("Target field not in numerical binary format!")
