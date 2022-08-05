@@ -17,7 +17,7 @@
 #' @param  lower_dev,        double, the lower threshold for the deviance of the nodes accepted. Default = 0.1
 #' @param  suffix_output,    string, suffix to the output columns
 #'
-#' @return either a string or a data.frame with the list of leaves interactions
+#' @return A (possibly empty) data.frame with the list of leaves interactions
 #' @export
 #'
 #' @importFrom rpart rpart rpart.control path.rpart
