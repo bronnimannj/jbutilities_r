@@ -20,7 +20,7 @@
 #' @return A (possibly empty) data.frame with the list of leaves interactions
 #' @export
 #'
-#' @importFrom rpart rpart rpart.control path.rpart
+#' @importFrom rpart
 #'
 #' @example class_tree_interaction_finder( data.frame("a" = c(0,1,2),"b" = c(2,1,1),"target" = c(0,0,1)), 'target')
 #'
