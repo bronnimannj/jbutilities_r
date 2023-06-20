@@ -15,11 +15,11 @@
 #' @return string "Check completed".
 #' @export
 #'
-#' @importFrom crayon blue red green magenta
-#' @importFrom stringr str_length
-#' @importFrom snakecase to_any_case
-#' @importFrom psych describe
-#' @importFrom dplyr rename
+#' @importFrom crayon
+#' @importFrom stringr
+#' @importFrom snakecase
+#' @importFrom psych
+#' @importFrom dplyr
 #'
 #' @examples check_format_df(iris)
 check_format_df <- function(data, digits = 6){
@@ -119,7 +119,7 @@ check_format_df <- function(data, digits = 6){
 
   # Other values to check in data ---------------------------------------------
   cols_infinite <- sapply(X = data,
-                          function(x){sum(is.numeric(x) &&
+                          function(x){sum(is.numeric(x) &
                                             (is.infinite(x) |
                                             stringr::str_to_upper(x) %in% c("INF","INFINITE") ))})
 
