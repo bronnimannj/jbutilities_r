@@ -25,7 +25,7 @@ What is checked:
 }
 }
 \details{
-And a summary is created on all numeric variables
+And a summary is created on all variables
 }
 \examples{
 check_format_df(iris)
