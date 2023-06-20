@@ -6,22 +6,22 @@
 \usage{
 create_df_rd(
   size = 10,
-  seed = as.numeric(NA),
-  Numerics = NULL,
-  Booleans = NULL,
-  Categories = NULL
+  seed = NULL,
+  numerics = NULL,
+  booleans = NULL,
+  categories = NULL
 )
 }
 \arguments{
-\item{size}{Integer, number of rows of the final dataset.}
+\item{size}{Integer, number of profiles to create.}
 
-\item{seed}{Numeric. If NA, a seed is randomly creacted. Else, takes the seed given.}
+\item{seed}{Numeric. Seed for reproducibility. If NULL, a seed is randomly created. The default is NA}
 
-\item{Numerics}{Character vector of names of normally distributed numeric vectors}
+\item{numerics}{List. Normally distributed numeric columns. ID are the names and values are either NULL or a vector of length 2 with mean and std.}
 
-\item{Booleans}{Named vector of probabilities between 0 and 1}
+\item{booleans}{List. Binomial distributed columns. Keys are the names, values are either NULL or a float which is the probability of True values.}
 
-\item{Categories}{List of factor variables, each element containing the levels as character vector}
+\item{categories}{List. Multinomial distributed columns. Keys are the names, values are either NULL or a vector of categorical values. The probabilities will be 1/N if a column has N unique values}
 }
 \value{
 data.frame that can be tested by check_format_df
@@ -36,5 +36,5 @@ A function to create a dataset containing :
 }
 }
 \examples{
-create_df_rd(10,NA, c("num1","num2"), c(0.2,0.3),list(a = c(1,2,3),b = c("F","M")))
+create_df_rd(10,NULL, list("num1" = NULL,"num2" = c(0,1)), list("bool1" = 0.5),list(a = c(1,2,3),b = c("F","M")))
 }

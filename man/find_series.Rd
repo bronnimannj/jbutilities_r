@@ -4,18 +4,18 @@
 \alias{find_series}
 \title{find_series}
 \usage{
-find_series(Name, Type)
+find_series(name_file, type_file)
 }
 \arguments{
-\item{Name}{String, representing the name of the file}
+\item{name_file}{String, representing the name of the file. If file not at the working directory, add the path to it.}
 
-\item{Type}{String, representing the extension of the file}
+\item{type_file}{String, representing the extension of the file}
 }
 \value{
 String, with the last name of the series
 }
 \description{
-Function to find the latest file in a series. Types regognized are:
+Function to find the latest file in a series. Types recognized are:
 }
 \examples{
 find_series("test", "csv")

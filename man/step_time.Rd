@@ -4,16 +4,18 @@
 \alias{step_time}
 \title{step_time}
 \usage{
-step_time(step = 0)
+step_time(step = 0, digits = 2)
 }
 \arguments{
-\item{step}{String, representing the step. Can be a number too}
+\item{step}{double, representing the step.}
+
+\item{digits}{int, number of digits we will write down}
 }
 \value{
 String, with step number and the date + time
 }
 \description{
-Function to print a step and time
+Function to print a step and time. Step is by default with 2 digits
 }
 \examples{
 step_time(1.1)

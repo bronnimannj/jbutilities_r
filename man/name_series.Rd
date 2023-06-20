@@ -4,12 +4,12 @@
 \alias{name_series}
 \title{name_series}
 \usage{
-name_series(Name, Type)
+name_series(name_file, type_file)
 }
 \arguments{
-\item{Name}{String, representing the name of the file}
+\item{name_file}{String, representing the name of the file}
 
-\item{Type}{String, representing the extension of the file}
+\item{type_file}{String, representing the extension of the file}
 }
 \value{
 String, with the next name of the series
