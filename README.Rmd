@@ -18,77 +18,43 @@ knitr::opts_chunk$set(
 
 ## Table of contents
 
-- [Motivations](#motivations)
 - [Project description](#description)
-- [Data used](#data)
-- [Visuals](#visuals)
-- [Packages used](#packages_used)
+- [Libraries used](#packages_used)
 - [Instructions](#instructions)
 - [Files](#files)
 - [Possible improvements](#improvements)
-- [Credits](#credits)
 - [License](#license)
-- [Links](#links)
 - [Status](#status)
 
-
-## Motivations <a name="motivations"></a>
-
-This package contains multiple functions in R I found or created through the years and may be useful to keep
 
 
 ## Project description <a name="description"></a>
 
-A good one takes advantage of the opportunity to explain and showcase:
-
-What your application does,
-Why you used the technologies you used,
-Some of the challenges you faced and features you hope to implement in the future.
-
-- step by step of pipeline / modelling
-- summary on data (unless in section below)
+This package contains multiple functions in R that I found or created through the years and may be useful to keep
 
 
-## Data used (if any) <a name="data"></a>
 
-Description of the public data used in this Project
+## Libraries used <a name="packages_used"></a>
 
-## Visuals <a name="visuals"></a>
-
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). 
-
-```text
-To link to pictures:
-![Alt text](relative/path/to/img.jpg?raw=true "Title")
-```
-
-## Packages used <a name="packages_used"></a>
-
-- os
-- sys
-- numpy
-- pandas
-- re
-- matplotlib
-- pickle
-- sqlalchemy
-- logging
-- nltk
-- sklearn
-- json
-- plotly
-- flask
-- pathlib
+- Rcpp
+- tidyverse
+- stats
+- stringr
+- data.table
+- crayon
+- snakecase
+- psych
+- dplyr
 
 ## Instructions <a name="instructions"></a>
-
-How to install and run the project
 
 You can clone this repository by opening Git Bash and the command line
 
 ```text
-git clone https://github.com/jmballard/NAME_OF_REPO.git
+git clone https://github.com/jmballard/jbutilities_r.git
 ```
+
+Note: This repo is currently not a package.
 
 ## Files <a name="files"></a>
 
@@ -109,14 +75,8 @@ Here is the content of this repo:
 
 ## Possible improvements on this project: <a name="improvements"></a>
 
-List of possible improvements
-
-
-## Credits <a name="credits"></a>
-
-If you worked on the project as a team or an organization, list your collaborators/team members. You should also include links to their GitHub profiles and social media too.
-
-Also, if you followed tutorials or referenced a certain material that might help the user to build that particular project, include links to those here as well.
+- Add more functions
+- Make a zip file for package download
 
 
 ## License <a name="license"></a>
@@ -143,10 +103,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-## Links <a name="links"></a>
-
-Links to any web page if any
 
 ## Project status  <a name="status"></a>
 
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+This project is currently stopped as I have been using Python as my main language since 2021.
